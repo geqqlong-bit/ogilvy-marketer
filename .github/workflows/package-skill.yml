@@ -1,0 +1,37 @@
+name: package-skill
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths:
+      - 'skill/ogilvy-marketer/**'
+      - '.github/workflows/package-skill.yml'
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install OpenClaw
+        run: npm install -g openclaw
+
+      - name: Resolve package script path
+        run: echo "OPENCLAW_ROOT=$(npm root -g)" >> $GITHUB_ENV
+
+      - name: Package skill
+        run: python3 "$OPENCLAW_ROOT/openclaw/skills/skill-creator/scripts/package_skill.py" skill/ogilvy-marketer dist
+        shell: bash
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ogilvy-marketer-skill
+          path: dist/ogilvy-marketer.skill
