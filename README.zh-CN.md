@@ -70,19 +70,41 @@ flowchart LR
 
 - OpenClaw
 - Node.js 18+
-- 可访问的 MarketerClaw API
-- 一个 OpenAI-compatible 的模型端点或代理
+- **MarketerClaw 后端**（多智能体工作流引擎）— 需运行中且可访问
+- **LLM 代理**（OpenAI-compatible 模型端点）— 用于角色模型调用
+- 可选：`xiaohongshu-skills` 用于小红书数据抓取
+
+## 依赖说明
+
+奥格威 Agent 是一个**调度器 + CLI 包装层**，它依赖以下组件：
+
+| 依赖项 | 用途 | 默认端口 |
+|--------|------|----------|
+| MarketerClaw 后端 | 多智能体营销工作流引擎 | `:8787`（可配置） |
+| LLM 代理 | OpenAI-compatible 模型端点 | `:8999/v1`（可配置） |
+| `xiaohongshu-skills`（可选） | 小红书竞品数据抓取 | N/A（通过 MarketerClaw 调用） |
+
+**注意**：如果只安装 Ogilvy 而不安装这些依赖，运行时会报连接错误。
 
 ## 快速开始
 
 ### 1）配置运行时环境变量
 
 ```bash
-export OGILVY_MARKETERCLAW_URL="http://127.0.0.1:8787"
-export OGILVY_LLM_BASE_URL="http://127.0.0.1:8999/v1"
-export OGILVY_LLM_API_KEY="test-key"
+# MarketerClaw 后端（你的本地实例）
+export OGILVY_MARKETERCLAW_URL="http://<your-host>:<your-port>"
+
+# LLM 代理（OpenAI-compatible）
+export OGILVY_LLM_BASE_URL="http://<your-llm-proxy>:<port>/v1"
+
+# LLM 代理的 API Key
+export OGILVY_LLM_API_KEY="<your-api-key>"
+
+# 营销工作流默认模型
 export OGILVY_DEFAULT_MODEL="bailian/qwen3.5-plus"
 ```
+
+**替换占位符**为你的实际部署地址。本地开发默认端口为 `:8787`（MarketerClaw）和 `:8999`（LLM 代理）。
 
 可选调优：
 

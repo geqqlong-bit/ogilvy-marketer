@@ -67,19 +67,41 @@ flowchart LR
 
 - OpenClaw
 - Node.js 18+
-- A reachable MarketerClaw API
-- A reachable OpenAI-compatible model endpoint or proxy
+- **MarketerClaw backend** (multi-agent workflow engine) — running and reachable
+- **LLM proxy** (OpenAI-compatible endpoint) — for role models
+- Optional: `xiaohongshu-skills` for Xiaohongshu data scraping
+
+## Dependencies
+
+Ogilvy Agent is a **scheduler + CLI wrapper**. It depends on:
+
+| Dependency | Purpose | Default Port |
+|------------|---------|--------------|
+| MarketerClaw backend | Multi-agent marketing workflow engine | `:8787` (configurable) |
+| LLM proxy | OpenAI-compatible model endpoint | `:8999/v1` (configurable) |
+| `xiaohongshu-skills` (optional) | Xiaohongshu competitor scraping | N/A (called via MarketerClaw) |
+
+**Note**: If you install Ogilvy without these dependencies, it will fail with connection errors.
 
 ## Quick start
 
 ### 1) Configure runtime endpoints
 
 ```bash
-export OGILVY_MARKETERCLAW_URL="http://127.0.0.1:8787"
-export OGILVY_LLM_BASE_URL="http://127.0.0.1:8999/v1"
-export OGILVY_LLM_API_KEY="test-key"
+# MarketerClaw backend (your local instance)
+export OGILVY_MARKETERCLAW_URL="http://<your-host>:<your-port>"
+
+# LLM proxy (OpenAI-compatible)
+export OGILVY_LLM_BASE_URL="http://<your-llm-proxy>:<port>/v1"
+
+# API key for LLM proxy
+export OGILVY_LLM_API_KEY="<your-api-key>"
+
+# Default model for marketing workflows
 export OGILVY_DEFAULT_MODEL="bailian/qwen3.5-plus"
 ```
+
+**Replace placeholders** with your actual deployment addresses. Default local development ports are `:8787` (MarketerClaw) and `:8999` (LLM proxy).
 
 Optional tuning:
 
