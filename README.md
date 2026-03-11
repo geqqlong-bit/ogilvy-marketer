@@ -1,8 +1,9 @@
 # Ogilvy for OpenClaw
 
-A portable marketing agent for OpenClaw that converts plain-language marketing requests into structured multi-agent deliverables.
+A marketing agent for OpenClaw that converts plain-language marketing requests into structured multi-agent deliverables.
 
-**Best for:** competitor analysis, launch strategy, audience insight, content planning, GTM work, and campaign briefs.
+**Best for:** Marketing, operations, PR, content, and e-commerce professionals.
+**Best scenarios:** competitor analysis, marketing strategy, audience insight, content matrix, GTM, campaign brief, budget management, risk monitoring.
 
 ## Why this exists
 
@@ -122,11 +123,11 @@ Expected behavior:
 
 ```bash
 node skill/ogilvy-marketer/scripts/ogilvy-cli.mjs \
-  --projectName "Fusheng Liuji Xiaohongshu competitor research" \
-  --productName "Fusheng Liuji perfume" \
+  --projectName "Perfume Brand Xiaohongshu Competitor Research" \
+  --productName "Perfume Product" \
   --brief "Analyze competitor content strategy on Xiaohongshu and produce recommendations" \
   --templateId content_matrix_cn \
-  --out ../../state/fushengliuji-report.md
+  --out ../../state/competitor-research-report.md
 ```
 
 ## Template guide
@@ -183,14 +184,6 @@ What has been intentionally checked before public release:
 - runtime endpoints are environment-variable driven
 - packaged artifact is rebuildable from source
 - installation uses a local workspace target instead of machine-specific assumptions
-
-## Publishing checklist
-
-- [ ] Move this folder into its own repository
-- [ ] Add repository description and tags
-- [ ] Configure secrets or local `.env` for runtime endpoints
-- [ ] Verify the packaged `.skill` artifact builds in CI
-- [ ] Do not commit real API keys
 
 ## License
 
