@@ -124,8 +124,8 @@ bash install.sh ~/.openclaw/workspace
 
 ```bash
 node skill/ogilvy-marketer/scripts/ogilvy-cli.mjs \
-  --projectName "馥生六记小红书竞品研究" \
-  --productName "馥生六记香水" \
+  --projectName "某香水品牌小红书竞品研究" \
+  --productName "某香水" \
   --brief "分析小红书竞品内容打法，输出内容策略" \
   --templateId content_matrix_cn \
   --out ../../state/fushengliuji-report.md
@@ -163,27 +163,6 @@ CLI 会明确报错并打印它访问的 endpoint。优先检查 `OGILVY_MARKETE
 
 ### 可以接别的模型供应商吗？
 可以。只要你的 endpoint 是 OpenAI-compatible，或者后端接受当前的模型配置结构即可。
-
-### 可以直接公开成单独 GitHub 仓库吗？
-可以。这个目录就是按“可独立抽出”为目标整理的。
-
-## 打包
-
-重新生成 `.skill` 分发包：
-
-```bash
-python3 <openclaw-root>/skills/skill-creator/scripts/package_skill.py skill/ogilvy-marketer dist
-```
-
-仓库中已经包含 GitHub Actions：`.github/workflows/package-skill.yml`。
-
-## 发布前检查清单
-
-- [ ] 把当前目录抽成独立仓库
-- [ ] 补仓库描述和 tags
-- [ ] 在 Secrets 或本地 `.env` 中配置运行时地址
-- [ ] 确认 CI 能成功打包 `.skill`
-- [ ] 不要提交真实 API key
 
 ## License
 
