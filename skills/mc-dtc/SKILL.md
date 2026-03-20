@@ -1,0 +1,590 @@
+---
+name: mc-dtc
+description: 海外独立站全栈操盘技能。覆盖技术选型、站内转化、流量获取、信任体系、支付物流、多市场本地化、数据归因和站点合规，输出可直接交给建站团队和运营团队落地的完整蓝图。
+---
+
+## 触发条件
+
+当用户提到以下任意情形时使用本技能：
+
+- "独立站" / "DTC" / "Shopify" / "建站" / "standalone site"
+- "跨境电商独立站" / "品牌官网" / "DTC brand site"
+- "独立站怎么搭" / "独立站流量怎么做" / "独立站转化率低"
+- "从 Amazon 转独立站" / "做自己的品牌站"
+- 提到海外电商且不依赖第三方平台（非 Amazon/Shopee/Lazada）
+
+---
+
+## 与其他技能的关系
+
+| | mc-dtc | 关联技能 |
+|---|---|---|
+| 站内内容 | 产品页/落地页/About 页的转化文案规格 | mc-content 按规格产出具体文案 |
+| 搜索优化 | 站点 SEO 架构 + 技术 SEO 基础 | mc-geo 在此基础上叠加 AI 搜索优化 |
+| 自动化 | 站点触发的用户行为事件定义 | mc-automation 接收事件设计工作流 |
+| 合规 | 站点级法律文件和技术合规 | mc-review 审查站内营销内容 |
+| 流量 | 付费+有机流量获取全局规划 | mc-content 产出各渠道引流内容 |
+
+**mc-dtc 是独立站的"总架构师"，其他 skill 是"各工种施工队"。**
+
+---
+
+## 工作方式
+
+1. 确定独立站阶段：
+   - **从零建站**：全套规划
+   - **已有站优化**：诊断现有问题 + 优化方案
+   - **平台转独立站**：从 Amazon/Shopee 迁移策略
+2. 读取 `brief.md`（如存在）获取品牌、产品、人群和目标市场上下文
+3. 产出写入 `campaigns/{project-slug}/dtc.md`
+
+---
+
+## 模块 1：技术选型与站点架构
+
+### 建站平台选择
+
+```markdown
+## 技术选型
+
+### 平台评估矩阵
+
+| 维度 | Shopify | Shopify Plus | WooCommerce | BigCommerce | Headless (自建) |
+|------|---------|-------------|-------------|-------------|----------------|
+| 上手速度 | 快 | 快 | 中 | 中 | 慢 |
+| 月成本 | $39-399 | $2000+ | 主机+插件 | $39-399 | 开发成本 |
+| 定制自由度 | 中 | 高 | 高 | 中 | 完全自由 |
+| 多语言/多币种 | Markets 原生 | Markets Pro | 插件 | 部分原生 | 自建 |
+| 页面速度 | 中上 | 中上 | 取决于主机 | 中 | 可极致优化 |
+| SEO 能力 | 中（URL 限制） | 中 | 强 | 中上 | 完全可控 |
+| App 生态 | 极丰富 | 极丰富 | 极丰富 | 中 | 按需集成 |
+| 适合阶段 | 0→1 起步 | 规模化 | 内容驱动型 | 中等规模 | 技术团队强 |
+```
+
+### 推荐决策逻辑
+
+| 条件 | 推荐 |
+|------|------|
+| 首次出海，团队 ≤5 人，月 GMV <$50K | Shopify Basic/Standard |
+| 已验证 PMF，月 GMV $50K-500K，需要多市场 | Shopify + Markets |
+| 月 GMV >$500K，需要高度定制结账/会员体系 | Shopify Plus 或 Headless |
+| 内容驱动型品牌（博客/社区/杂志感） | WooCommerce + 好主机 |
+| 有技术团队，追求极致性能和 SEO | Headless（Next.js + Shopify Storefront API 或 Medusa） |
+
+### 站点架构规划
+
+```markdown
+### 页面结构
+
+首页
+├── 导航：品类页 / Collections
+├── 产品详情页 (PDP)
+├── 落地页 (LP) — 广告专用
+├── About / Brand Story
+├── Blog / Content Hub
+├── FAQ / Help Center
+├── Reviews / Testimonials
+├── Contact
+└── 法律页
+    ├── Privacy Policy
+    ├── Terms of Service
+    ├── Shipping & Returns
+    ├── Cookie Policy
+    └── Accessibility Statement
+
+### URL 结构规划
+- 品类页：/collections/{category-slug}
+- 产品页：/products/{product-slug}
+- 博客：/blogs/{blog-slug}/{post-slug}
+- 落地页：/pages/{campaign-slug}
+- 多语言（如需）：/{locale}/... 或子域名 {locale}.domain.com
+
+### 必装基础工具
+| 类别 | 工具 | 用途 |
+|------|------|------|
+| 分析 | GA4 + Google Tag Manager | 流量和行为追踪 |
+| 搜索 | Google Search Console | 索引和搜索表现 |
+| 热力图 | Hotjar / Microsoft Clarity | 用户行为可视化 |
+| 邮件 | Klaviyo / Omnisend | 邮件自动化 |
+| 评价 | Judge.me / Loox / Stamped | 产品评价收集和展示 |
+| 客服 | Gorgias / Zendesk / Tidio | 客户支持 |
+| SEO | Ahrefs / SEMrush（至少一个） | 关键词和竞品监控 |
+| 支付 | Shopify Payments / Stripe | 多币种支付 |
+```
+
+---
+
+## 模块 2：页面转化优化
+
+### 首页
+
+```markdown
+### 首页转化要素清单
+
+| 区域 | 必须包含 | 目标 |
+|------|---------|------|
+| 首屏 Hero | 一句话价值主张 + 主视觉 + 主 CTA | 3 秒内传达"你是谁、卖什么、为什么选你" |
+| 社会证明条 | 评价数/评分 + 媒体 logo + 销量数字 | 首屏下方立刻建立信任 |
+| 热门产品 | 3-6 个核心 SKU 卡片 + 价格 + 评分 | 减少选择成本，直接进入购买路径 |
+| 品牌故事条 | 2-3 句 + 视觉 | 差异化定位，不是公司简介 |
+| UGC/评价区 | 真实用户图片+文字 | 真实感 > 精修图 |
+| 底部信任区 | 退换货政策 / 安全支付 / 物流时效 | 消除购买阻力 |
+```
+
+### 产品详情页 (PDP)
+
+```markdown
+### PDP 转化要素清单
+
+| 区域 | 规格 | 常见错误 |
+|------|------|---------|
+| 产品图 | 5-8 张：白底主图 + 场景图 + 细节图 + 尺寸参照 + 使用步骤 | 只有 1-2 张白底图 |
+| 产品视频 | 15-30 秒：使用场景 + 效果展示 | 没有视频 |
+| 标题 | 品牌 + 产品名 + 核心卖点关键词 | 标题太短或堆砌关键词 |
+| 价格区 | 价格 + 划线价（如有） + 分期选项（如 Afterpay/Klarna）| 没有锚定价格 |
+| 核心卖点 | 3-5 个 icon + 短文案（一行说完一个点）| 大段文字无人读 |
+| 变体选择 | 颜色/尺寸/规格的视觉化选择器 | 下拉菜单看不到选项 |
+| Add to Cart | 固定可见、颜色突出、文案明确 | 按钮不够醒目 |
+| 信任徽章 | 安全支付 / 退换政策 / 物流时效 / 认证标志 | 放在页面底部看不到 |
+| 产品描述 | 场景化 + 证据支撑，不是参数罗列 | 复制工厂说明书 |
+| 评价区 | 评分摘要 + 带图评价 + 筛选器 | 没有评价或评价不可信 |
+| 交叉推荐 | "Frequently Bought Together" / "You May Also Like" | 无关联推荐 |
+| FAQ | 产品级常见问题（材质/尺寸/使用方法/退换） | 没有 FAQ |
+
+### PDP 文案结构模板
+1. **Headline：** 一句话说清"用了会怎样"（结果导向，非功能描述）
+2. **Sub-headline：** 补充"怎么做到的"（核心技术/成分/工艺）
+3. **Bullet Points：** 3-5 个，每个 icon + 一句话（痛点→方案 格式）
+4. **Long Description：** 场景 → 问题 → 方案 → 证据 → CTA
+5. **Ingredients/Specs：** 可折叠区域，给需要细节的用户
+```
+
+### 落地页 (Landing Page)
+
+```markdown
+### 广告落地页结构
+
+针对付费流量（Meta Ads / Google Ads / TikTok Ads）的专用落地页：
+
+| 区域 | 内容 | 设计要点 |
+|------|------|---------|
+| Hero | 与广告素材一致的视觉 + 价值主张 + CTA | Message Match 是转化率第一要素 |
+| 痛点共鸣 | "你是否遇到过..." — 2-3 个具体场景 | 让用户觉得"说的是我" |
+| 方案介绍 | 产品如何解决以上痛点 | 证据 > 宣称 |
+| 社会证明 | 评价/数字/媒体引用 | 至少 3 条真实评价 |
+| 使用展示 | Before/After 或使用步骤 | 视觉化 |
+| 价格+Offer | 清晰的价格锚定 + 限时/限量（如有） | 消除价格犹豫 |
+| CTA | 全页 2-3 个 CTA 按钮，文案一致 | 滚动到哪都能买 |
+| FAQ | 3-5 个购买阻力相关问题 | 退换/物流/效果 |
+
+### 落地页禁忌
+- 不放导航栏（减少流失出口）
+- 不放无关链接
+- 不要多个不同的 CTA（一个页面一个目标）
+- 移动端优先设计（60-80% 流量来自手机）
+```
+
+### 结账流程 (Checkout)
+
+```markdown
+### 结账优化清单
+
+| 优化项 | 说明 | 影响 |
+|--------|------|------|
+| Guest Checkout | 允许不注册直接购买 | 减少 15-25% 弃单率 |
+| 进度条 | 显示结账步骤（1/3 → 2/3 → 3/3）| 降低放弃率 |
+| 地址自动补全 | Google Places API | 减少输入错误和摩擦 |
+| 多支付方式 | 信用卡 + PayPal + Apple Pay + Google Pay + 本地支付 | 覆盖不同偏好 |
+| 分期付款 | Afterpay / Klarna / Affirm（高客单价必备）| 提高客单价和转化率 |
+| 信任徽章 | 安全支付图标、SSL 标志 | 消除安全顾虑 |
+| 退换政策 | 在结账页可见 | 消除后顾之忧 |
+| 运费透明 | 尽早展示运费，不在最后一步才出现 | 运费惊吓是弃单首因 |
+| Order Summary | 商品图+名称+数量+价格，全程可见 | 确认感 |
+| 优惠码入口 | 有，但不过度突出（避免用户离开找码）| 平衡转化和利润 |
+```
+
+---
+
+## 模块 3：流量获取矩阵
+
+### 付费流量
+
+```markdown
+### 付费渠道规划
+
+| 渠道 | 适合阶段 | 核心指标 | 预算建议 |
+|------|---------|---------|---------|
+| Meta Ads (FB/IG) | 0→1 冷启动 | ROAS, CPA, CTR | 初期 50-70% 付费预算 |
+| Google Ads (Search) | 有品类搜索需求时 | ROAS, CPC, 转化率 | 20-30% 付费预算 |
+| Google Ads (Shopping) | 有产品图和价格优势时 | ROAS, CPC | 与 Search 合并预算 |
+| Google Ads (PMax) | 规模化后 | ROAS | 需要足够的转化数据 |
+| TikTok Ads | 视觉/视频驱动型产品 | CPA, 完播率, CTR | 10-20% 付费预算试水 |
+| Pinterest Ads | 家居/时尚/美妆/食品 | CPA, Pin saves | 5-15% 作为补充 |
+| Influencer/Affiliate | 需要社会证明时 | CPA (affiliate), EMV (influencer) | 按 CPA 结算控制风险 |
+
+### 冷启动流量策略（月预算 <$10K）
+
+1. **Meta Ads 为主**：
+   - 第 1 周：3-5 组 Broad Targeting + 3 套素材测试
+   - 第 2 周：根据 CPA 砍掉差素材，追加好素材预算
+   - 第 3-4 周：用 Pixel 数据建 Lookalike，扩量
+   - 持续：每周更新 2-3 套新素材（创意疲劳周期 7-14 天）
+2. **Google Search 辅助**：品牌词 + 高购买意图品类词
+3. **Influencer seeding**：送 10-20 个 micro influencer 产品，换 UGC 素材
+
+### 规模化流量策略（月预算 >$50K）
+
+1. Meta Ads：Broad + Lookalike + Retargeting 三层漏斗
+2. Google：Search + Shopping + PMax 组合
+3. TikTok Ads：Spark Ads（复用 creator 内容）
+4. Affiliate Program：ShareASale / Impact / 自建
+5. Influencer：分层合作（Mega 做声量 + Micro 做转化）
+6. Retargeting：站内浏览未购 → Meta/Google 再营销
+
+### 广告素材方法论
+
+| 素材类型 | 适用渠道 | 说明 |
+|---------|---------|------|
+| UGC 风格 | Meta, TikTok | 真实用户使用体验，手机拍摄感 |
+| 产品展示 | Google Shopping, Meta | 白底/场景化产品图 |
+| Before/After | Meta, Pinterest | 效果对比（注意合规）|
+| 创始人故事 | Meta, YouTube | 品牌差异化 |
+| 开箱/Unboxing | TikTok, YouTube | 真实感 + 包装展示 |
+| 对比测评 | YouTube, TikTok | 与竞品的公正对比 |
+| Social Proof | 全渠道 | 评价截图 / 销量数据 |
+```
+
+### 有机流量
+
+```markdown
+### SEO 策略
+
+#### 技术 SEO 基础
+| 检查项 | 标准 |
+|--------|------|
+| 页面速度 | Core Web Vitals 全绿（LCP <2.5s, FID <100ms, CLS <0.1）|
+| 移动适配 | 移动优先索引，响应式设计 |
+| 站点地图 | XML Sitemap 提交至 GSC 和 Bing Webmaster |
+| Robots.txt | 正确配置，不误封重要页面 |
+| Canonical URL | 避免重复内容 |
+| 内链结构 | 重要页面从首页 3 次点击内可达 |
+| Schema Markup | Product / FAQ / Breadcrumb / Review 至少覆盖 |
+| HTTPS | 全站强制 HTTPS |
+| 404 处理 | 自定义 404 页 + 重要旧 URL 做 301 重定向 |
+
+#### 内容 SEO 策略
+| 内容类型 | 目标关键词类型 | 示例 |
+|---------|-------------|------|
+| 品类页 | 品类核心词 | "organic face serum" |
+| 产品页 | 产品+品牌词 | "{brand} vitamin C serum" |
+| 博客-教程 | How-to 长尾词 | "how to build a skincare routine" |
+| 博客-对比 | vs/best/review 词 | "best vitamin C serums 2025" |
+| 博客-问答 | 问题型长尾词 | "is vitamin C serum good for acne" |
+| 落地页 | 高购买意图词 | "buy organic serum online" |
+
+#### 内容日历节奏
+- 月 4-8 篇博客（2 篇教程 + 2 篇对比/评测 + 2-4 篇问答）
+- 每篇 1500-2500 词，含图片/视频/内链
+- 每季度更新 1 次已发布的高流量文章
+```
+
+### 社媒有机流量
+
+```markdown
+### 社媒引流策略
+
+不依赖付费的社媒有机增长：
+
+| 平台 | 引流到站的方式 | 节奏 |
+|------|-------------|------|
+| Instagram | Bio 链接 + Stories Link Sticker + "Link in bio" CTA | 日更 1 Feed/Reel + 3-5 Stories |
+| TikTok | Bio 链接 + TikTok Shop（如有）+ 评论区引导 | 日更 1-2 条 |
+| Pinterest | 每个 Pin 链接回产品页/博客 | 周 10-20 个 Pin |
+| YouTube | 描述区链接 + 视频内口播 CTA | 周 1-2 条（Shorts + 长视频）|
+| Email | 引导订阅 → 后续站内转化 | 参见 mc-automation |
+```
+
+---
+
+## 模块 4：信任体系建设
+
+```markdown
+## 信任体系
+
+### 信任层级
+
+| 层级 | 要素 | 实施方式 |
+|------|------|---------|
+| L1 基础安全 | SSL、安全支付、隐私保护 | 技术配置 + 信任徽章展示 |
+| L2 政策透明 | 退换货/物流/联系方式清晰可见 | 页脚 + 产品页 + 结账页 |
+| L3 社会证明 | 用户评价、媒体引用、销量数据 | 评价系统 + PR + 数据展示 |
+| L4 品牌故事 | 创始人/团队/制造过程/价值观 | About 页 + 社媒 + 包装 |
+| L5 社区归属 | UGC、品牌社群、忠诚度计划 | Hashtag + 社群 + 积分系统 |
+
+### 评价系统搭建
+
+| 阶段 | 策略 |
+|------|------|
+| 0 评价冷启动 | 送 20-50 个产品给真实用户换评价（非虚假评价）；产品内附评价引导卡 |
+| 有评价后 | 自动化：购后 7 天发送评价请求邮件（带直达链接）|
+| 规模化 | 带图评价奖励（积分/折扣）；UGC 内容二次使用于广告和社媒 |
+| 负面评价 | 48 小时内回复；公开回复展示解决态度；严重问题私信处理 |
+
+### PR & 媒体引用
+
+- 目标：拿到 3-5 个可在站内展示的媒体 logo
+- 方式：产品寄送 + pitch email → Niche 媒体/博主 → 争取 "Featured in" 露出
+- 展示：首页社会证明条 + PDP + 落地页
+```
+
+---
+
+## 模块 5：支付与物流
+
+### 支付
+
+```markdown
+## 支付策略
+
+### 支付方式覆盖
+
+| 市场 | 必接支付方式 | 可选补充 |
+|------|------------|---------|
+| 美国 | 信用卡 (Visa/MC/Amex) + PayPal + Apple Pay + Google Pay | Afterpay/Klarna（高客单价）|
+| 英国 | 信用卡 + PayPal + Apple Pay + Klarna | Clearpay |
+| 德国 | 信用卡 + PayPal + Klarna + SOFORT | Giropay |
+| 法国 | 信用卡 + PayPal + Apple Pay | Carte Bancaire |
+| 日本 | 信用卡 + PayPay + 便利店支付 + 代引 | Amazon Pay |
+| 韩国 | 信用卡 + Kakao Pay + Naver Pay + 虚拟账户 | Toss |
+| 东南亚 | 信用卡 + GrabPay + GCash + COD | 银行转账 |
+| 澳洲 | 信用卡 + PayPal + Afterpay + Apple Pay | Zip |
+
+### 多币种策略
+- 展示本地货币价格（不让用户自己算汇率）
+- Shopify Markets / 手动设定各市场价格
+- 定价策略：不是直接汇率换算，而是按各市场购买力和竞品定价调整
+```
+
+### 物流
+
+```markdown
+## 物流策略
+
+### 物流模式选择
+
+| 模式 | 适合场景 | 优势 | 劣势 |
+|------|---------|------|------|
+| 国内直发 | 测试期、低客单、长尾市场 | 无海外仓成本 | 物流慢（7-15天）|
+| 海外仓 (3PL) | 已验证市场、需要快物流 | 3-5 天送达 | 库存风险 + 仓储费 |
+| 平台仓 (FBA Multi-Channel) | 同时做 Amazon + 独立站 | 利用 FBA 物流 | 成本高、包装无品牌 |
+| 本地仓 | 单一大市场深耕 | 次日达可能 | 固定成本高 |
+
+### 按市场推荐
+
+| 市场 | 推荐物流 | 关键参数 |
+|------|---------|---------|
+| 美国 | 测试期：云途/燕文直发；规模化：ShipBob/Deliverr/FBA | 免邮门槛 $49-79 |
+| 欧洲 | 英国仓 + 欧盟仓分开（脱欧后税务独立）| 免邮门槛 €49-79，注意 IOSS |
+| 日本 | 测试期：直发（日本消费者可接受 7-10 天）；规模化：日本仓 | 免邮门槛 ¥5000-8000 |
+| 东南亚 | 直发为主（时效可接受）；规模化考虑新加坡/泰国仓 | COD 占比高，需支持 |
+
+### 物流体验优化
+| 优化项 | 说明 |
+|--------|------|
+| 运费展示 | 产品页即展示预估运费和时效（不要到结账才显示）|
+| 物流追踪 | 自动发送 tracking number + 追踪页面（AfterShip / 17track）|
+| 包装 | 品牌化包装（开箱体验影响 UGC 和复购）|
+| 关税 | DDP（含税到门）优于 DDU（用户自付关税），体验差距巨大 |
+| 退换货 | 清晰政策 + 简化流程（美国市场：30 天免费退换是行业标准）|
+```
+
+---
+
+## 模块 6：多市场本地化
+
+```markdown
+## 本地化策略
+
+### 本地化 ≠ 翻译
+
+| 维度 | 仅翻译 | 真正本地化 |
+|------|--------|-----------|
+| 语言 | 机翻 / 直译 | 本地母语者写 / 审 |
+| 定价 | 汇率换算 | 按市场购买力和竞品定价 |
+| 尺寸 | 保留原单位 | 转换为当地单位（cm/inch, kg/lb）|
+| 支付 | 只接信用卡 | 接入本地主流支付方式 |
+| 视觉 | 全球统一素材 | 使用当地模特/场景/审美 |
+| 评价 | 英文评价 | 展示本地语言评价 |
+| 客服 | 英文邮件 | 本地语言 + 本地工作时间 |
+| 合规 | 英文法律页 | 本地语言法律页 + 本地法规适配 |
+| 节日/促销 | Black Friday | + 本地节日（双十一/Prime Day/Golden Week）|
+
+### 多市场站点结构
+
+| 方案 | 实现方式 | 适合 |
+|------|---------|------|
+| 子目录 | domain.com/en/ domain.com/de/ | 大多数品牌的最佳选择 |
+| 子域名 | en.domain.com de.domain.com | 各市场差异大时 |
+| 独立域名 | domain.com domain.de domain.co.jp | 完全独立运营各市场 |
+| Shopify Markets | 自动处理语言/货币/域名 | Shopify 用户推荐 |
+
+### 优先级排序
+
+不要同时进入所有市场。按以下逻辑排序：
+
+1. **市场吸引力**：品类搜索量 × 客单价 × 支付渗透率
+2. **进入难度**：语言壁垒 × 合规成本 × 物流复杂度 × 竞争强度
+3. **验证方式**：先用英文站 + 国际物流测试需求，有数据后再本地化
+
+| 市场 | 通常优先级 | 理由 |
+|------|-----------|------|
+| 美国 | 最先 | 最大英语市场、支付成熟、物流方案丰富 |
+| 英国/加/澳 | 紧随美国 | 同语言、低本地化成本 |
+| 德国 | 欧洲首站 | 欧洲最大电商市场 |
+| 日本 | 亚洲首站（高客单品类）| 高客单价、品质偏好强 |
+| 东南亚 | 低客单品类出海 | 增速快但客单低 |
+```
+
+---
+
+## 模块 7：数据归因与分析
+
+```markdown
+## 数据体系
+
+### 基础追踪配置
+
+| 工具 | 配置要点 |
+|------|---------|
+| GA4 | Enhanced Ecommerce 事件：view_item, add_to_cart, begin_checkout, purchase |
+| Meta Pixel | PageView, ViewContent, AddToCart, InitiateCheckout, Purchase + Conversions API (CAPI) |
+| Google Ads | Conversion tracking + Enhanced Conversions |
+| TikTok Pixel | 同上，Events API 优先 |
+| Google Tag Manager | 统一管理所有 pixel，避免直接在代码中硬编码 |
+
+### 关键指标体系
+
+| 层级 | 指标 | 健康基准 |
+|------|------|---------|
+| 流量 | Sessions, Users, 新访比 | — |
+| 获客 | CPC, CPM, CTR (by channel) | Meta CTR >1%, Google Search CTR >3% |
+| 转化 | Conversion Rate, AOV, Revenue | CR >1.5%（冷流量），>3%（热流量）|
+| 购物车 | Add-to-Cart Rate, Cart Abandonment Rate | ATC >5%, Abandonment <70% |
+| 客户 | CAC, LTV, LTV:CAC Ratio, Payback Period | LTV:CAC >3:1 |
+| 留存 | Repeat Purchase Rate, Purchase Frequency | RPR >20%（12个月内）|
+| 盈利 | Gross Margin, Contribution Margin, Blended ROAS | CM >20%, ROAS >3x |
+
+### 归因模型选择
+
+| 模型 | 适合 | 说明 |
+|------|------|------|
+| Last Click (GA4 默认) | 起步阶段 | 简单直接，但低估上层漏斗 |
+| Data-Driven (GA4) | 有足够转化数据后 | Google 推荐，但黑盒 |
+| Platform-reported | 各广告平台 | 各平台会高估自己贡献，交叉参考 |
+| Blended ROAS | 规模化后 | 总收入 / 总广告花费，最诚实的宏观指标 |
+| MMM (Media Mix Modeling) | 月广告 >$100K | 统计建模，量化各渠道真实贡献 |
+
+### 报表节奏
+
+| 频率 | 看什么 |
+|------|--------|
+| 日 | 广告花费、ROAS、CPA、网站 CR |
+| 周 | 渠道表现对比、素材效果、库存 |
+| 月 | CAC、LTV、Blended ROAS、Contribution Margin |
+| 季 | 渠道组合优化、新市场评估、年度预算修正 |
+```
+
+---
+
+## 模块 8：站点合规
+
+```markdown
+## 站点合规
+
+### 必须的法律页面
+
+| 页面 | 内容 | 法规依据 |
+|------|------|---------|
+| Privacy Policy | 收集什么数据、怎么用、怎么保护、用户权利 | GDPR (EU), CCPA (CA), LGPD (BR) |
+| Terms of Service | 使用条款、免责声明、争议解决 | 通用商业法 |
+| Cookie Policy | 使用了哪些 cookie、用途、如何管理 | EU ePrivacy Directive |
+| Shipping Policy | 配送方式、时效、费用、覆盖区域 | 消费者保护法 |
+| Return & Refund Policy | 退换条件、时限、流程、退款方式 | 各国消费者权益法 |
+| Accessibility Statement | 无障碍承诺和联系方式 | ADA (US), EAA (EU 2025) |
+
+### 技术合规
+
+| 要求 | 说明 | 工具 |
+|------|------|------|
+| Cookie Consent | 欧盟/英国访客必须在同意前不加载非必要 cookie | Cookiebot / OneTrust / Shopify 内置 |
+| GDPR 数据请求 | 支持用户查看/删除/导出个人数据的流程 | 手动流程或工具自动化 |
+| CCPA opt-out | 加州用户需要"Do Not Sell My Personal Information"链接 | 隐私政策页 + 功能实现 |
+| ADA 合规 | 网站需对残障用户可访问（图片 alt text、键盘导航、色彩对比）| accessiBe / WAVE 检测 |
+| PCI DSS | 支付数据安全（使用 Shopify/Stripe 等已认证的支付处理商即合规）| 不自建支付系统 |
+| WEEE (EU) | 电子产品需标注回收信息 | 产品页和包装 |
+
+### 税务
+
+| 市场 | 关键税务要求 |
+|------|-------------|
+| 美国 | Sales Tax：Nexus 州需收取（Shopify Tax / TaxJar 自动处理）|
+| 欧盟 | VAT：€150 以下 IOSS 申报；€150 以上海关申报。需 IOSS 号 |
+| 英国 | VAT：£135 以下卖家代收代缴；需 UK VAT 注册 |
+| 日本 | 消费税：¥16,666 以下免税进口；以上需缴纳消费税 |
+| 加拿大 | GST/HST：超过 $30K CAD 年收入需注册 |
+| 澳洲 | GST：$75 AUD 以下免 GST；以上需注册并代收 |
+```
+
+---
+
+## 输出模式
+
+### 从零建站（完整蓝图）
+
+输出全部 8 个模块，按以下顺序组织：
+
+```markdown
+# {品牌名} · 独立站作战蓝图
+
+**创建时间：** {日期}
+**目标市场：** {市场列表}
+**建站平台：** {推荐平台}
+
+## 1. 技术选型与架构
+## 2. 页面转化优化（首页 / PDP / LP / Checkout）
+## 3. 流量获取矩阵（付费 + 有机 + 社媒）
+## 4. 信任体系
+## 5. 支付与物流
+## 6. 多市场本地化
+## 7. 数据归因与分析
+## 8. 站点合规
+
+## 上线路线图
+| 阶段 | 时间 | 核心任务 | 验收标准 |
+|------|------|---------|---------|
+| P0 基础建站 | Week 1-2 | 平台搭建 + 核心页面 + 支付 | 能完成首单 |
+| P1 流量启动 | Week 3-4 | Meta Ads + 基础 SEO + 邮件收集 | 日均 >100 访客 |
+| P2 转化优化 | Week 5-8 | PDP 优化 + 评价 + A/B 测试 | CR >1.5% |
+| P3 规模化 | Month 3+ | 多渠道流量 + 自动化 + 第二市场 | 正向 Contribution Margin |
+```
+
+### 已有站诊断
+
+用户提供站点 URL 后，按 8 个模块逐项审计，输出问题清单 + 优化建议 + 优先级排序。
+
+### 单模块深入
+
+用户只关心某个维度（"物流怎么选" / "广告怎么投" / "合规要做什么"），只输出对应模块。
+
+---
+
+## 交互规则
+
+- 用户可以指定阶段（"我是从零开始" vs "我已经有站了想优化"）
+- 用户可以指定市场（"先做美国" vs "美国+欧洲"）
+- 用户可以指定平台偏好（"我们用 Shopify"），系统在蓝图中标注平台特有的实现方式
+- 如果有 brief.md，蓝图自动对齐产品、人群和预算
+- 流量策略部分可以交给 mc-content 产出具体的广告素材和内容
+- 自动化部分可以交给 mc-automation 设计具体的工作流
+- GEO/SEO 部分可以交给 mc-geo 做深入的搜索优化
+- 输出完成后告诉用户文件路径，不要在对话中重复全文

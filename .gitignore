@@ -1,0 +1,10 @@
+# Node
+webui/node_modules/
+webui/.next/
+webui/.env.local
+
+# macOS
+.DS_Store
+
+# Campaign outputs (local only)
+/campaigns/
