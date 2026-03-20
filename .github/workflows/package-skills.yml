@@ -1,0 +1,75 @@
+name: Package Skills
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "skills/**"
+      - ".github/workflows/package-skills.yml"
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install OpenClaw
+        run: npm install -g openclaw
+        continue-on-error: true  # graceful fallback if openclaw packager unavailable
+
+      - name: Package each skill (OpenClaw packager)
+        id: pack_openclaw
+        run: |
+          mkdir -p dist
+          OPENCLAW_ROOT=$(npm root -g 2>/dev/null || echo "")
+          PACK_SCRIPT="$OPENCLAW_ROOT/openclaw/skills/skill-creator/scripts/package_skill.py"
+
+          if [ -f "$PACK_SCRIPT" ]; then
+            for skill_dir in skills/mc-*/; do
+              skill_name=$(basename "$skill_dir")
+              echo "Packaging $skill_name via openclaw..."
+              python3 "$PACK_SCRIPT" "$skill_dir" dist
+            done
+            echo "method=openclaw" >> $GITHUB_OUTPUT
+          else
+            echo "OpenClaw packager not found, falling back to zip"
+            echo "method=zip" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Package each skill (zip fallback)
+        if: steps.pack_openclaw.outputs.method == 'zip'
+        run: |
+          mkdir -p dist
+          for skill_dir in skills/mc-*/; do
+            skill_name=$(basename "$skill_dir")
+            echo "Packaging $skill_name as zip..."
+            (cd skills && zip -r "../dist/${skill_name}.skill" "$skill_name/")
+            echo "  -> dist/${skill_name}.skill"
+          done
+
+      - name: List dist artifacts
+        run: ls -lh dist/
+
+      - name: Upload skill artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: marketerclaw-skills
+          path: dist/*.skill
+          retention-days: 90
+
+      - name: Create Release on version tag
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*.skill
+          generate_release_notes: true
