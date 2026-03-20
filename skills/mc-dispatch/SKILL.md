@@ -146,8 +146,12 @@ node {SKILL_DIR}/../../../scripts/finalize.mjs \
 ```bash
 # 探测 scripts/ 目录
 SKILL_DIR=$(ls ~/.openclaw/skills/mc-dispatch/SKILL.md 2>/dev/null && echo ~/.openclaw/skills/mc-dispatch || echo ./skills/mc-dispatch)
-SCRIPTS_DIR="$(dirname $SKILL_DIR)/../../scripts"
+SCRIPTS_DIR="$(dirname $SKILL_DIR)/../scripts"
 ls "$SCRIPTS_DIR/setup.mjs" && echo "scripts found at $SCRIPTS_DIR" || echo "scripts not found"
 ```
 
-若 scripts 目录未找到，提示用户检查 MarketerClaw 安装是否完整（`install.sh` 需要安装整个 repo，而非只复制 skills/）。
+路径说明：
+- 全局安装：`~/.openclaw/skills/mc-dispatch/../scripts` → `~/.openclaw/scripts/` ✓
+- 本地仓库：`./skills/mc-dispatch/../scripts` → `./scripts/` ✓
+
+若 scripts 目录未找到，提示用户重新运行 `install.sh`（v1.1+ 已自动安装 scripts/）。
