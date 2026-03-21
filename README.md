@@ -42,10 +42,14 @@ curl -fsSL https://raw.githubusercontent.com/Eleven1111/MarketerClaw/main/instal
 
 | 技能 | EN | 用途 | 独立可用 |
 |------|----|------|---------|
+| `mc-brand` | Brand | 品牌策略（品牌本质/定位/人格原型/语调体系/视觉方向/品牌架构） | ✅ |
+| `mc-storyteller` | Storyteller | 品牌叙事（核心冲突/叙事角色/故事母题/情感弧线/平台叙事适配/故事库） | ✅ |
 | `mc-insight` | Insight | 文化洞察（时代情绪/圈层文化/地域差异/文化时机/表达领土/踩雷预警） | ✅ |
 | `mc-product` | Product | 造品（需求空白/差异化策略/产品定义/体验设计/命名包装/产品线架构） | ✅ |
 | `mc-aigc` | AIGC | AI内容生成（图片/视频Prompt体系/品牌视觉系统/素材矩阵/Midjourney/Kling/Runway） | ✅ |
 | `mc-selection` | Selection | 选品决策（热度信号/需求验证/竞争饱和度/利润模型/平台适配/供应链/合规/营销可行性） | ✅ |
+| `mc-kol` | KOL | 达人营销（达人分层/筛选标准/平台策略/Brief撰写/合作管理/效果评估） | ✅ |
+| `mc-community` | Community | 私域社群（微信私域/Discord/WhatsApp/会员体系/用户分层/裂变增长） | ✅ |
 | `mc-campaign` | Campaign | 全流程作战编排（brief → 策略 → 内容 → 渠道 → 审核） | ✅ |
 | `mc-research` | Research | 市场调研（行业趋势/品类机会/人群洞察/搜索热度/社媒声量） | ✅ |
 | `mc-content` | Content | 单平台内容生产（国内 6 + 海外 10 个平台） | ✅ |
@@ -168,19 +172,28 @@ Each file is standalone markdown — hand directly to the relevant team member.
 ## 工作流程 · Workflow
 
 ```
-市场调研 (mc-research) ──────────────────────────────────┐
-                                                          │
-用户输入 brief ──▶ 需求分诊 ──▶ 策略规划                    │
-                               │                          │
-                ┌──────────────┼──────────────┬──────────┘
+品牌策略 (mc-brand) ──▶ 叙事体系 (mc-storyteller)
+     ↓                         ↓
+文化洞察 (mc-insight) ──▶ 市场调研 (mc-research)
+     ↓                         ↓
+选品 (mc-selection) ──▶ 造品 (mc-product)
+                               ↓
+用户输入 brief ──▶ 需求分诊 ──▶ 策略规划 (mc-campaign)
+                               │
+                ┌──────────────┼──────────────┐
                 ▼              ▼              ▼
-            内容生产        GEO 优化       营销自动化 / 独立站蓝图
-            content/*       geo.md        automation.md / dtc.md
+            内容生产        SEO / GEO      营销自动化 / 独立站
+         content/* + aigc   seo + geo     automation / dtc
+                │              │              │
+                ▼              ▼              ▼
+           达人营销 ──▶ 私域社群 ──▶ 渠道排布
+           (mc-kol)   (mc-community)
                 └──────────────┼──────────────┘
                                ▼
-                           渠道排布 ──▶ 品牌+合规双审 ──▶ 数据分析 / 复盘
+                     品牌+合规双审 ──▶ 数据分析 / 复盘
 ```
 
+- brand.md 是全局上下文，所有技能自动读取 / brand.md is global context
 - 可在任意步骤暂停 / Pause at any step
 - 可单步重跑 / Re-run any single step
 - 可随时补充信息 / Add context anytime
