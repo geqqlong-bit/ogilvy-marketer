@@ -1,0 +1,48 @@
+MarketerClaw License
+
+Copyright (c) 2024-2026 MarketerClaw Authors. All rights reserved.
+
+Permission is hereby granted, free of charge, to any individual to use,
+copy, and modify this software and associated skill files ("Skills") for
+personal, non-commercial purposes, subject to the following conditions:
+
+1. PERSONAL USE
+   You may install and use MarketerClaw for your own marketing projects,
+   learning, and experimentation at no cost.
+
+2. COMMERCIAL USE
+   Commercial use — including but not limited to using the Skills to
+   generate deliverables for paying clients, incorporating the Skills
+   into a paid product or service, or deploying the Skills in a
+   commercial SaaS environment — is permitted under this license.
+
+3. REDISTRIBUTION PROHIBITED
+   You may NOT redistribute, republish, resell, sublicense, or
+   otherwise make the Skills available to third parties, whether
+   in original or modified form, without prior written permission
+   from the copyright holders. This includes but is not limited to:
+   - Hosting modified copies on public repositories
+   - Bundling the Skills into competing skill packs or products
+   - Offering the Skills as part of a managed service
+
+4. ATTRIBUTION
+   Any permitted use must retain this license file and all copyright
+   notices. Removal of watermarks, fingerprints, or other origin
+   markers embedded in the Skills is expressly prohibited.
+
+5. INTEGRITY
+   You may NOT remove, alter, or circumvent any technical protection
+   measures embedded in the Skills, including but not limited to
+   zero-width Unicode watermarks, installation fingerprints, content
+   hashes, or manifest files.
+
+6. NO WARRANTY
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+   EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+   MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY
+   CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+   TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+   SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+For commercial redistribution licensing, contact the repository owner.

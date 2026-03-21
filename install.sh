@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# MarketerClaw installer  v1.1
+# MarketerClaw installer  v2.0
 # Usage:
 #   ./install.sh               → installs to ~/.openclaw/skills/ + ~/.openclaw/scripts/
 #   ./install.sh /path/to/ws   → installs to /path/to/ws/skills/ + /path/to/ws/scripts/
@@ -31,7 +31,7 @@ else
 fi
 
 echo ""
-echo "  MarketerClaw Installer v1.1"
+echo "  MarketerClaw Installer v2.0"
 echo "  ─────────────────────────────────────"
 echo "  Source skills  : $SKILLS_SRC"
 echo "  Source scripts : $SCRIPTS_SRC"
@@ -66,6 +66,23 @@ if [[ -d "$SCRIPTS_SRC" ]]; then
   echo "  ✅ scripts → $SCRIPTS_DST"
 else
   echo "  ⚠  scripts/ not found in repo — skipping (mc-dispatch may not work)"
+fi
+
+# ── Fingerprint watermarking ────────────────────────────────────────────────
+# Embed invisible installation ID into all SKILL.md files for traceability
+
+FINGERPRINT="$SCRIPTS_DST/fingerprint.mjs"
+if [[ -f "$FINGERPRINT" ]] && command -v node &>/dev/null; then
+  echo "  🔏 Embedding installation fingerprint..."
+  FP_RESULT=$(node "$FINGERPRINT" --embed "$TARGET_DIR" 2>/dev/null || echo '{"error":true}')
+  FP_ID=$(echo "$FP_RESULT" | grep -o '"installationId":"[^"]*"' | cut -d'"' -f4)
+  if [[ -n "$FP_ID" ]]; then
+    echo "  ✅ Fingerprint: $FP_ID"
+  else
+    echo "  ⚠  Fingerprint embedding skipped (non-fatal)"
+  fi
+else
+  echo "  ⚠  Node.js not found or fingerprint.mjs missing — skipping watermark"
 fi
 
 echo ""
